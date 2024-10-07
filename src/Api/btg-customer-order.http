@@ -1,6 +1,0 @@
-@btg_customer_order_HostAddress = http://localhost:5242
-
-GET {{btg_customer_order_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
