@@ -1,4 +1,4 @@
-version: '3'
+version: '3.1'
 
 services:
   rabbitmq:
@@ -16,36 +16,25 @@ services:
   mongo:
     container_name: "mongo-btg"  
     image: mongo
+    restart: always
     ports:
       - 27017:27017
-    volumes:
-      - MongoDB:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: 
       MONGO_INITDB_ROOT_PASSWORD: 
-    networks:
-      - mongo-compose-network
     
   mongo-express:
     container_name: "mongo-express-btg"  
     image: mongo-express
+    restart: always
     ports:
       - 8081:8081
     environment:
       ME_CONFIG_BASICAUTH_USERNAME: 
       ME_CONFIG_BASICAUTH_PASSWORD: 
-      ME_CONFIG_MONGODB_PORT: 27017
       ME_CONFIG_MONGODB_ADMINUSERNAME: 
       ME_CONFIG_MONGODB_ADMINPASSWORD: 
-      ME_CONFIG_MONGODB_SERVER: mongo
-    links:
-      - mongo
-    networks:
-      - mongo-compose-network
+      ME_CONFIG_MONGODB_URL: mongodb://:@mongo:27017/
   
 volumes:
   rabbitmq_data:
-
-networks: 
-    mongo-compose-network:
-      driver: bridge
